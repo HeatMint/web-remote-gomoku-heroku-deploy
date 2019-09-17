@@ -2,6 +2,7 @@ from flask import Flask
 from flask import send_file
 from flask import redirect
 from flask import request
+import os
 
 from flask_socketio import SocketIO
 from flask_socketio import send, emit
@@ -145,5 +146,5 @@ def statics(path):
         except IOError:
             pass
 
-
-socketio.run(app)
+port = int(os.environ.get('PORT', 5000))
+socketio.run(app, host='0.0.0.0', port=port)
