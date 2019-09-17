@@ -1,3 +1,4 @@
 
 *.xml
 .idea/web-remote-gomoku.iml
+/venv

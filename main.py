@@ -16,7 +16,7 @@ board = []
 step_by_step = []
 from copy import deepcopy
 
-for i in xrange(0, 15):
+for i in range(0, 15):
     board.append(deepcopy(row))
 print(len(board))
 
@@ -29,7 +29,7 @@ def connect():
     users.append(sid)
     emit('sid', sid)
     emit('init', [step_by_step,board])
-    print board
+    print(board)
     print(users)
 
 
@@ -44,11 +44,11 @@ def disconnect():
 # processor start
 def iswin(x,y):
     global board
-    print board
+    print(board)
     count=max(search(x,y,[1,0])+search(x,y,[-1,0]),search(x,y,[0,1])+search(x,y,[0,-1]),search(x,y,[1,1])+search(x,y,[-1,-1]),search(x,y,[1,-1])+search(x,y,[-1,1]))
-    print count
+    print(count)
     if count>=6:
-        print "win"
+        print("win")
         return True
 
 
@@ -64,9 +64,9 @@ def search(x,y, position):
         if status == color:
             count += 1
         else:
-            print str(count)+str(position)
+            print(str(count)+str(position))
             return count
-    print str(count) + str(position)
+    print(str(count) + str(position))
     return count
 
 @socketio.on('go', namespace='/socket')
@@ -119,12 +119,12 @@ def regret(place):
     x=place[0]
     y=place[1]
     if place == step_by_step[-1]:
-        print "regret on "+str(step_by_step[-1])
+        print("regret on "+str(step_by_step[-1]))
         for i in users:
             emit('regret',step_by_step[-1],room=i)
         step_by_step.pop()
         board[x][y]=-1
-        print board
+        print(board)
 
 # processor end
 
