@@ -146,4 +146,4 @@ def statics(path):
             pass
 
 
-socketio.run(app, port=100, host='0.0.0.0')
+socketio.run(app, port=80, host='0.0.0.0')
