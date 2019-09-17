@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.3.6/socket.io.min.js"></script>
+    <script src="script.js"></script>
+    <title>Remote Gomoku!</title>
+</head>
+<body>
+    <div id="board" style="display: inline;float: left;"></div>
+    <div id="rules" style="padding-left: 50% ">
+	Rules:
+	Two player game, one took black, one took white.
+	Black and white each take turns to play.
+	Try to let five of your chess connect in a line with each other.
+	If five chess connects in a line horizontally, vertically, and diagonally, you win.
+    <a href="https://heatmint.github.io/gomoku_intro.html">Click me for more info and guides about this website.</a>
+	</div>
+    <div id="reset" style="padding-left: 50% "></div>
+    <div id="regret" style="padding-left: 50% "></div>
+</body>
+</html>
