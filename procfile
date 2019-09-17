@@ -1,1 +1,1 @@
-web: python main.py runserver 0.0.0.0:80
+gunicorn -k geventwebsocket.gunicorn.workers.GeventWebSocketWorker -w 1 main:app
