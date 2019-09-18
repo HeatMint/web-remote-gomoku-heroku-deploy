@@ -8,6 +8,7 @@ from flask_socketio import SocketIO
 from flask_socketio import send, emit
 
 app = Flask(__name__)
+app.secret_key = os.environ.get("SECRET")
 socketio = SocketIO(app)
 color = 0
 
