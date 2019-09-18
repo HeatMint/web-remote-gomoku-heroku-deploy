@@ -9,6 +9,7 @@ from flask_socketio import send, emit
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET")
+app.config['WTF_CSRF_SECRET_KEY'] = "b'\xc72\x7f\xfb\xc1\xa4\xc6Y\xc84\xe8\xfcf\xf5\xdb\x12'"
 socketio = SocketIO(app, manage_session=False)
 color = 0
 
