@@ -1,5 +1,5 @@
 window.onload = function () {
-    socket = io.connect('http://' + document.domain + ':' + '80/socket');
+    socket = io.connect('https://' + document.domain + ':' + '80/socket');
     y = window.screen.height * window.devicePixelRatio>=window.screen.width * window.devicePixelRatio?window.screen.width*0.65 * window.devicePixelRatio:window.screen.height*0.65 * window.devicePixelRatio;
     gamey = Math.floor(y);
     border = Math.round(gamey/20);
