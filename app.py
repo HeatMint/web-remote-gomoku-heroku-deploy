@@ -9,7 +9,7 @@ from flask_socketio import send, emit
 
 app = Flask(__name__)
 app.secret_key = os.environ.get("SECRET")
-socketio = SocketIO(app)
+socketio = SocketIO(app, manage_session=False)
 color = 0
 
 users = []
