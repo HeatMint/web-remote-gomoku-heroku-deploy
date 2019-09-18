@@ -145,5 +145,5 @@ def statics(path):
             return send_file("static/" + path + ".html")
         except IOError:
             pass
-
-socketio.run(app)
+if __name__ == "__main__":
+    socketio.run(app)
