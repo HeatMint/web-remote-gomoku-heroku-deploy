@@ -127,6 +127,7 @@ def regret(place):
             emit('regret',step_by_step[-1],room=i)
         step_by_step.pop()
         board[x][y]=-1
+        color = (color + 1) % 2
         print(board)
 
 # processor end
