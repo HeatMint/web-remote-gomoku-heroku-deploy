@@ -133,20 +133,38 @@ window.onload = function () {
     }
 
     function draw_over(x,y){
+        boardx=x;
+        boardy=y;
         var x=converter(x);
         var y=converter(y);
         var half_bet=between/2;
         ext.clearRect(x-half_bet,y-half_bet,between,between);
         ext.beginPath();
         ext.strokeStyle='#000000';
+        edgex=x-half_bet;
+        edgey=y-half_bet;
+        finx=x+half_bet;
+        finy=y+half_bet;
+        if(boardx==0){
+            edgex=x;
+        }
+        if(boardy==0){
+            edgey=y;
+        }
+        if(boardx==14){
+            finx=x;
+        }
+        if(boardy==14){
+            finy=y;
+        }
         for (var i = 0; i < 3; i++) {
             //this loop seems unreasonable but if you try to delete it
             //you will see what will happen
-            ext.moveTo(x-half_bet,y);
-            ext.lineTo(x+half_bet,y);
+            ext.moveTo(edgex,y);
+            ext.lineTo(finx,y);
             ext.stroke();
-            ext.moveTo(x,y-half_bet);
-            ext.lineTo(x,y+half_bet);
+            ext.moveTo(x,edgey);
+            ext.lineTo(x,finy);
             ext.stroke();
         }
         drawc(7,7,'black');
