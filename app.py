@@ -119,6 +119,7 @@ def reset(password):
 
 @socketio.on('regret', namespace='/socket')
 def regret(place):
+    global color
     x=place[0]
     y=place[1]
     if place == step_by_step[-1]:
