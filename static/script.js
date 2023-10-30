@@ -1,5 +1,5 @@
 window.onload = function () {
-    socket = io(location.protocol + document.domain + ':' + '/socket');
+    socket = io(location.protocol + '//' + document.domain + ':' + '/socket');
     abs_height = window.innerHeight;
     abs_width = window.innerWidth;
 
