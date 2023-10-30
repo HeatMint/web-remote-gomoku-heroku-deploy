@@ -2,32 +2,35 @@ from flask import Flask
 from flask import send_file
 from flask import redirect
 from flask import request
-import os
+
+from flask import Flask, render_template
 
 from flask_socketio import SocketIO
 from flask_socketio import send, emit
 
 app = Flask(__name__)
-app.secret_key = os.environ.get("SECRET")
-app.config['WTF_CSRF_SECRET_KEY'] = "b'\xc72\x7f\xfb\xc1\xa4\xc6Y\xc84\xe8\xfcf\xf5\xdb\x12'"
-socketio = SocketIO(app, manage_session=False)
+socketio = SocketIO(app)
 color = 0
 
 users = []
 row = [-1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1]
 board = []
 step_by_step = []
+
+boards = []
+
 from copy import deepcopy
 
 for i in range(0, 15):
     board.append(deepcopy(row))
-print(len(board))
 
+for i in range(0,3):
+    boards.append(deepcopy(board))
 
 # socket start
 # connection
-@socketio.on('connect', namespace='/socket')
-def connect():
+@socketio.on('connected', namespace='/socket')
+def connected(data):
     sid = request.sid
     users.append(sid)
     emit('sid', sid)
@@ -39,7 +42,8 @@ def connect():
 @socketio.on('disconnect', namespace='/socket')
 def disconnect():
     users.remove(request.sid)
-    print(users)
+    print(request.sid, "disconnected")
+    print("Remaaining: ",users)
 
 
 # connection end
@@ -118,7 +122,9 @@ def reset(password):
 
 
 @socketio.on('regret', namespace='/socket')
-def regret(place):
+def regret(place, board_id):
+
+    print("regret on board", board_id)
     global color
     x=place[0]
     y=place[1]
@@ -149,5 +155,6 @@ def statics(path):
             return send_file("static/" + path + ".html")
         except IOError:
             pass
+
 if __name__ == "__main__":
-    socketio.run(app,port=80)
+    socketio.run(app, port=80, allow_unsafe_werkzeug=True)

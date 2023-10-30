@@ -1,6 +1,10 @@
 window.onload = function () {
-    socket = io.connect(location.protocol + '//' + document.domain + '/socket');
-    y = window.screen.height * window.devicePixelRatio>=window.screen.width * window.devicePixelRatio?window.screen.width*0.65 * window.devicePixelRatio:window.screen.height*0.65 * window.devicePixelRatio;
+    socket = io('http://' + document.domain + ':' + '100/socket');
+    abs_height = window.innerHeight;
+    abs_width = window.innerWidth;
+
+    y = abs_height>=abs_width?abs_width:abs_height*0.8;
+    y = Math.floor(y)
     gamey = Math.floor(y);
     border = Math.round(gamey/20);
     between = Math.floor((gamey-2*border)/14);
@@ -17,10 +21,11 @@ window.onload = function () {
     canvas.style.backgroundColor = '#D5B092';
     ext = canvas.getContext("2d");
     //initial board and variables
-    socket.emit('connect','data');
+    socket.emit('connected','data');
 
     function regret(){
-        socket.emit("regret",(stepbystep[stepbystep.length-1]))
+        //modified
+        socket.emit("regret",(stepbystep[stepbystep.length-1]),1)
         console.log(stepbystep[stepbystep.length-1])
     }
 
@@ -77,21 +82,23 @@ window.onload = function () {
         }
         catch (e) {
             console.log(e.message);
-        }
+        };
+        console.log(mathboard);
     }
 
     socket.on('regret',function(step){
         console.log(step, stepbystep[stepbystep.length - 1])
         if (step[0]===(stepbystep[stepbystep.length - 1])[0]&&step[1]===(stepbystep[stepbystep.length - 1])[1]) {
         console.log("can regret")
-        stepbystep.pop()
         mathboard[step[0]][step[1]]=-1
+        stepbystep.pop()
         draw_over(step[0],step[1])
         round = (round + 1)%2;
 }
     })
 
     socket.on('init',function (steps) {
+        console.log(steps)
         ext.clearRect(0,0,gamey,gamey);
         console.log('reseeeet!!!');
         round=0
@@ -168,9 +175,9 @@ window.onload = function () {
             ext.stroke();
         }
         function dotcheck(x,y){
-        	if (mathboard[x][y]==-1) {
-        		drawc(x,y,'black');
-        	}
+            if (mathboard[x][y]==-1) {
+                drawc(x,y,'black');
+            }
         }
         dotcheck(7,7);
         dotcheck(3,3);
